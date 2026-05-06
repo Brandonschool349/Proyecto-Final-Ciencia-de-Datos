@@ -26,6 +26,16 @@ b2 = modelo.params["skipped"]
 print(f"Ecuación: Y = {a:.2f} + {b1:.2f}*X1 + {b2:.2f}*X2")
 # Predicciones
 pred = modelo.predict(X_const)
+# Crear tabla de resultados
+resultados = pd.DataFrame({
+    "ms_played_real": y,
+    "ms_played_pred": pred,
+    "residual": y - pred
+})
+
+print("\nPrimeros 10 resultados:")
+print(resultados.head(10))
+
 print("Predicciones generadas para todos los datos.")
 # Ejemplo de predicciones para shuffle=1, skipped=0 y shuffle=0, skipped=1
 pred_shuffle = a + b1 * 1 + b2 * 0
@@ -35,7 +45,12 @@ print(f"Predicción para shuffle=0, skipped=1: {pred_skipped:.2f}")
 
 print("\nPaso 11: Calcular residuales")
 res = y - pred
-print("Residuales calculados.")
+
+print("Residual mínimo:", res.min())
+print("Residual máximo:", res.max())
+
+print("\nPrimeros 10 residuales:")
+print(res.head(10))
 
 print("\nPaso 12: Desviación estándar de residuales")
 std_res = res.std()
